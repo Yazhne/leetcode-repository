@@ -1,22 +1,23 @@
-// Last updated: 8/22/2026, 3:14:44 PM
-1public class Solution {
-2    public int minSteps(String s, String t) {
-3        int[] countS = new int[26];
-4        int[] countT = new int[26];
+// Last updated: 8/22/2026, 3:16:23 PM
+1class Solution {
+2    public int findMin(int[] nums) {
+3        int l = 0;
+4        int r = nums.length - 1;
 5
-6        for (char ch : s.toCharArray()) {
-7            countS[ch - 'a']++;
-8        }
-9
-10        for (char ch : t.toCharArray()) {
-11            countT[ch - 'a']++;
-12        }
-13
-14        int steps = 0;
-15        for (int i = 0; i < 26; i++) {
-16            steps += Math.abs(countS[i] - countT[i]);
-17        }
-18
-19        return steps / 2;  
-20    }
-21}
+6        while (l < r) {
+7            int mid = l + (r - l) / 2;
+8
+9            if (nums[mid] < nums[r]) {
+10                r = mid;
+11            }
+12            else if (nums[mid] > nums[r]) {
+13                l = mid + 1;
+14            }
+15            else {
+16                r--;
+17            }
+18        }
+19
+20        return nums[l];
+21    }
+22}
