@@ -1,25 +1,26 @@
-// Last updated: 8/22/2026, 2:53:40 PM
+// Last updated: 8/22/2026, 2:55:19 PM
 1class Solution {
-2    public int findDuplicate(int[] nums) {
-3        int slow = nums[0];
-4        int fast = nums[0];
-5
-6        while (true) {
-7            slow = nums[slow];
-8            fast = nums[nums[fast]];
-9
-10            if (slow == fast) {
-11                break;
-12            }
-13        }
+2    public int longestConsecutive(int[] nums) {
+3        Set<Integer> numSet = new HashSet<>();
+4
+5        for (int num : nums) {
+6            numSet.add(num);
+7        }
+8
+9        int longest = 0;
+10
+11        for (int n : numSet) {
+12            if (!numSet.contains(n - 1)) {
+13                int length = 1;
 14
-15        int slow2 = nums[0];
-16
-17        while (slow != slow2) {
-18            slow = nums[slow];
-19            slow2 = nums[slow2];
-20        }
-21
-22        return slow;        
-23    }
-24}
+15                while (numSet.contains(n + length)) {
+16                    length++;
+17                }
+18
+19                longest = Math.max(longest, length);
+20            }
+21        }
+22
+23        return longest;
+24    }
+25}
