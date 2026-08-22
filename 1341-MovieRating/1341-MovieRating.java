@@ -1,24 +1,36 @@
-// Last updated: 8/22/2026, 2:59:46 PM
+// Last updated: 8/22/2026, 3:01:34 PM
 1class Solution {
-2    public int[] productExceptSelf(int[] nums) {
-3
+2    public int subarraySum(int[] nums, int k) 
+3    {
 4        int n = nums.length;
-5        int[] res = new int[n];
-6
-7        int pre = 1;
-8
-9        for(int i = 0; i < n; i++){
-10            res[i] = pre;
-11            pre *= nums[i];
+5        int count = 0;
+6        int[] prefixSum = new int[n];
+7
+8        prefixSum[0] = nums[0];
+9        for (int i = 1; i < n; i++)
+10        {
+11            prefixSum[i] = prefixSum[i - 1] + nums[i];
 12        }
 13
-14        int suf = 1;
+14        Map<Integer, Integer> m = new HashMap<>(); // PS, freq
 15
-16        for(int i = n - 1; i >= 0; i--){
-17            res[i] *= suf;
-18            suf *= nums[i];
-19        }
-20
-21        return res;
-22    }
-23}
+16        for (int j = 0; j < n; j++)
+17        {
+18            if (prefixSum[j] == k) count++;
+19
+20            int val = prefixSum[j] - k;
+21            if (m.containsKey(val))
+22            {
+23                count += m.get(val);
+24            }
+25
+26            if (!m.containsKey(prefixSum[j]))
+27            {
+28                m.put(prefixSum[j], 0);
+29            }
+30            m.put(prefixSum[j], m.get(prefixSum[j]) + 1);
+31        }
+32
+33        return count;
+34    }
+35}
