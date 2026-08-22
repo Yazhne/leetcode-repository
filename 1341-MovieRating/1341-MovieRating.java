@@ -1,32 +1,45 @@
-// Last updated: 8/22/2026, 2:30:44 PM
-1class Solution {
-2    public List<Integer> spiralOrder(int[][] matrix) {
-3        int top = 0, bottom = matrix.length - 1;
-4        int left = 0, right = matrix[0].length - 1;
-5        List<Integer> spiral = new ArrayList<>();
-6
-7        while (top <= bottom && left <= right) {
-8            for (int i = left; i <= right; i++)
-9                spiral.add(matrix[top][i]);
-10            top++;
-11
-12            for (int j = top; j <= bottom; j++)
-13                spiral.add(matrix[j][right]);
-14            right--;
-15
-16            if (top <= bottom) {
-17                for (int k = right; k >= left; k--)
-18                    spiral.add(matrix[bottom][k]);
-19                bottom--;
-20            }
-21
-22            if (left <= right) {
-23                for (int l = bottom; l >= top; l--)
-24                    spiral.add(matrix[l][left]);
-25                left++;
+// Last updated: 8/22/2026, 2:31:56 PM
+1public class Solution {
+2    public int[][] generateMatrix(int n) {
+3        // Declaration
+4        int[][] matrix = new int[n][n];
+5        
+6        // Edge Case
+7        if (n == 0) {
+8            return matrix;
+9        }
+10        
+11        // Normal Case
+12        int rowStart = 0;
+13        int rowEnd = n-1;
+14        int colStart = 0;
+15        int colEnd = n-1;
+16        int num = 1; //change
+17        
+18        while (rowStart <= rowEnd && colStart <= colEnd) {
+19            for (int i = colStart; i <= colEnd; i ++) {
+20                matrix[rowStart][i] = num ++; //change
+21            }
+22            rowStart ++;
+23            
+24            for (int i = rowStart; i <= rowEnd; i ++) {
+25                matrix[i][colEnd] = num ++; //change
 26            }
-27        }
-28
-29        return spiral;
-30    }
-31}
+27            colEnd --;
+28            
+29            for (int i = colEnd; i >= colStart; i --) {
+30                if (rowStart <= rowEnd)
+31                    matrix[rowEnd][i] = num ++; //change
+32            }
+33            rowEnd --;
+34            
+35            for (int i = rowEnd; i >= rowStart; i --) {
+36                if (colStart <= colEnd)
+37                    matrix[i][colStart] = num ++; //change
+38            }
+39            colStart ++;
+40        }
+41        
+42        return matrix;
+43    }
+44}
