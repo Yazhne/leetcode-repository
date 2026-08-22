@@ -1,45 +1,27 @@
-// Last updated: 8/22/2026, 2:31:56 PM
-1public class Solution {
-2    public int[][] generateMatrix(int n) {
-3        // Declaration
-4        int[][] matrix = new int[n][n];
-5        
-6        // Edge Case
-7        if (n == 0) {
-8            return matrix;
-9        }
-10        
-11        // Normal Case
-12        int rowStart = 0;
-13        int rowEnd = n-1;
-14        int colStart = 0;
-15        int colEnd = n-1;
-16        int num = 1; //change
-17        
-18        while (rowStart <= rowEnd && colStart <= colEnd) {
-19            for (int i = colStart; i <= colEnd; i ++) {
-20                matrix[rowStart][i] = num ++; //change
-21            }
-22            rowStart ++;
-23            
-24            for (int i = rowStart; i <= rowEnd; i ++) {
-25                matrix[i][colEnd] = num ++; //change
-26            }
-27            colEnd --;
-28            
-29            for (int i = colEnd; i >= colStart; i --) {
-30                if (rowStart <= rowEnd)
-31                    matrix[rowEnd][i] = num ++; //change
-32            }
-33            rowEnd --;
-34            
-35            for (int i = rowEnd; i >= rowStart; i --) {
-36                if (colStart <= colEnd)
-37                    matrix[i][colStart] = num ++; //change
-38            }
-39            colStart ++;
-40        }
-41        
-42        return matrix;
-43    }
-44}
+// Last updated: 8/22/2026, 2:49:00 PM
+1class Solution {
+2    public int trap(int[] height) {
+3        int n = height.length;
+4        int left = 0, right = n-1;
+5        int leftMax = 0, rightMax = 0;
+6        int res = 0;
+7        while (left <= right) {
+8            if (height[left] <= height[right]) {
+9                if (height[left] >= leftMax) {
+10                    leftMax = height[left];
+11                } else {
+12                    res += leftMax - height[left];
+13                }
+14                left++;
+15            } else {
+16                if (height[right] >= rightMax) {
+17                    rightMax = height[right];
+18                } else {
+19                    res += rightMax - height[right];
+20                }
+21                right--;
+22            }
+23        }
+24        return res;
+25    }
+26}
