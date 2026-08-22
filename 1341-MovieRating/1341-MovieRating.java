@@ -1,26 +1,20 @@
-// Last updated: 8/22/2026, 2:22:45 PM
+// Last updated: 8/22/2026, 2:23:39 PM
 1class Solution {
-2    public long maximumSubarraySum(int[] nums, int k) {
-3        int n = nums.length;
-4        Map<Integer,Long> map = new HashMap<>();
-5        long prefixsum=0;
-6        long maxSum=Long.MIN_VALUE;
-7        for(int i=0;i<n;i++)
-8        {
-9            if(map.getOrDefault(nums[i],Long.MAX_VALUE)>prefixsum)
-10            {
-11                 map.put(nums[i],prefixsum);
-12            }
-13            prefixsum+=nums[i];
-14            if(map.containsKey(nums[i]-k))
-15            {
-16                 maxSum=Math.max(maxSum,prefixsum-map.get(nums[i]-k));
-17            }
-18            if(map.containsKey(nums[i]+k))
-19            {
-20                 maxSum=Math.max(maxSum,prefixsum-map.get(nums[i]+k));
-21            }
-22        }
-23        return maxSum==Long.MIN_VALUE ? 0 : maxSum;
-24    }
-25}
+2    public int maximumSetSize(int[] nums1, int[] nums2) {
+3        Set<Integer> s1 = new HashSet(); 
+4        Set<Integer> s2 = new HashSet();
+5        Set<Integer> s3 = new HashSet(); 
+6        
+7        for (int num: nums1){
+8            s1.add(num);
+9            s3.add(num);
+10        } 
+11        for (int num: nums2) {
+12            s2.add(num);
+13            s3.add(num);
+14        } 
+15          
+16        return Math.min(Math.min(s1.size(), nums1.length/2) + 
+17                        Math.min(s2.size(), nums2.length/2), s3.size());                            
+18    }
+19}
