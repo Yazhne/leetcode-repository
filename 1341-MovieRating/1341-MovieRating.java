@@ -1,11 +1,22 @@
-// Last updated: 8/22/2026, 3:13:32 PM
-1class Solution {
-2    public String reverseWords(String s) {
-3        String[] str = s.trim().split("\\s+");
-4        String out = "";
-5        for (int i = str.length - 1; i > 0; i--) {
-6            out += str[i] + " ";
-7        }
-8        return out + str[0];
-9    }
-10}
+// Last updated: 8/22/2026, 3:14:44 PM
+1public class Solution {
+2    public int minSteps(String s, String t) {
+3        int[] countS = new int[26];
+4        int[] countT = new int[26];
+5
+6        for (char ch : s.toCharArray()) {
+7            countS[ch - 'a']++;
+8        }
+9
+10        for (char ch : t.toCharArray()) {
+11            countT[ch - 'a']++;
+12        }
+13
+14        int steps = 0;
+15        for (int i = 0; i < 26; i++) {
+16            steps += Math.abs(countS[i] - countT[i]);
+17        }
+18
+19        return steps / 2;  
+20    }
+21}
