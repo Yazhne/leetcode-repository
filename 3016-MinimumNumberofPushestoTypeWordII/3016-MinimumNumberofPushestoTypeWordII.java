@@ -1,50 +1,28 @@
-// Last updated: 8/23/2026, 9:08:52 PM
+// Last updated: 8/23/2026, 10:41:17 PM
 1class Solution {
-2
-3    public void reorderList(ListNode head) {
-4
-5        if(head == null || head.next == null){
-6            return;
-7        }
-8
-9        ListNode slow = head;
-10        ListNode fast = head;
-11
-12        while(fast.next != null && fast.next.next != null){
-13            slow = slow.next;
-14            fast = fast.next.next;
+2    public ListNode rotateRight(ListNode head, int k) {
+3        if (head == null || head.next == null || k == 0) {
+4            return head;
+5        }
+6        int n = 1;
+7        ListNode tail = head;
+8        while (tail.next != null) {
+9            tail = tail.next;
+10            n++;
+11        }
+12        k = k % n;
+13        if (k == 0) {
+14            return head;
 15        }
-16
-17
-18        ListNode second = slow.next;
-19        slow.next = null;
-20
-21
-22        ListNode prev = null;
-23
-24        while(second != null){
-25
-26            ListNode next = second.next;
-27
-28            second.next = prev;
-29
-30            prev = second;
-31            second = next;
-32        }
-33
-34        second = prev;
-35        ListNode first = head;
-36
-37        while(second != null){
-38
-39            ListNode temp1 = first.next;
-40            ListNode temp2 = second.next;
-41
-42            first.next = second;
-43            second.next = temp1;
-44
-45            first = temp1;
-46            second = temp2;
-47        }
-48    }
-49}
+16        tail.next = head;
+17        int steps = n - k;
+18        ListNode newTail = head;
+19        for (int i = 1; i < steps; i++) {
+20            newTail = newTail.next;
+21        }
+22        ListNode newHead = newTail.next;
+23        newTail.next = null;
+24
+25        return newHead;
+26    }
+27}
