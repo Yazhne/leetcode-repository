@@ -1,33 +1,11 @@
-// Last updated: 8/23/2026, 8:40:58 PM
-1class Solution {
-2    public ListNode removeNthFromEnd(ListNode head, int n) {
-3        // Handle single node list
-4        if (head.next == null) return null;
-5        
-6        ListNode ptr = head;
-7        ListNode temp = head;
-8        
-9        // Move ptr forward n times to create the gap
-10        int i = 1;
-11        while (i <= n) {
-12            ptr = ptr.next; 
-13            i++;
-14        }
-15        
-16        // If ptr becomes null, we need to remove the head
-17        if (ptr == null) return head.next;
-18        
-19        // Move both until ptr reaches the last node
-20        while (ptr.next != null) {
-21            ptr = ptr.next;
-22            temp = temp.next;
-23        } 
-24        
-25        // Skip the nth node from the end
-26        if (temp.next != null) {
-27            temp.next = temp.next.next;
-28        }
-29        
-30        return head;
-31    }
-32}
+// Last updated: 8/23/2026, 8:47:16 PM
+1public class Solution {
+2    public ListNode swapPairs(ListNode head) {
+3        if ((head == null)||(head.next == null))
+4            return head;
+5        ListNode n = head.next;
+6        head.next = swapPairs(head.next.next);
+7        n.next = head;
+8        return n;
+9    }
+10}
