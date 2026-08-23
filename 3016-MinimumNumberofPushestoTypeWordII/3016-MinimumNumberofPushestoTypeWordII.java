@@ -1,35 +1,30 @@
-// Last updated: 8/23/2026, 10:53:03 PM
+// Last updated: 8/23/2026, 10:56:59 PM
 1class Solution {
-2    public String minWindow(String s, String t) {
-3        if (s == null || t == null || s.length() == 0 || t.length() == 0 ||
-4                s.length() < t.length()) {
-5            return new String();
-6        }
-7        int[] map = new int[128];
-8        int count = t.length();
-9        int start = 0, end = 0, minLen = Integer.MAX_VALUE, startIndex = 0;
-10        for (char c : t.toCharArray()) {
-11            map[c]++;
-12        }
-13
-14        char[] chS = s.toCharArray();
-15
-16        while (end < chS.length) {
-17            if (map[chS[end++]]-- > 0) {
-18                count--;
-19            }
-20            while (count == 0) {
-21                if (end - start < minLen) {
-22                    startIndex = start;
-23                    minLen = end - start;
-24                }
-25                if (map[chS[start++]]++ == 0) {
-26                    count++;
-27                }
-28            }
-29        }
-30
-31        return minLen == Integer.MAX_VALUE ? new String() :
-32                new String(chS, startIndex, minLen);
-33    }
-34}
+2    public ListNode partition(ListNode head, int x) {
+3        if(head == null || head.next == null) {
+4            return head;
+5        }
+6        ListNode less = new ListNode(-1);
+7        ListNode more = new ListNode(-1);
+8
+9        ListNode tail1 = less;
+10        ListNode tail2 = more;
+11
+12        ListNode temp = head;
+13        while(temp != null) {
+14            if(temp.val < x) {
+15                tail1.next = temp;
+16                tail1 = tail1.next;
+17            }
+18            else {
+19                tail2.next = temp;
+20                tail2 = tail2.next;
+21            }
+22            temp = temp.next;
+23        }
+24        
+25        tail1.next = more.next;
+26        tail2.next = null;
+27        return less.next;
+28    }
+29}
