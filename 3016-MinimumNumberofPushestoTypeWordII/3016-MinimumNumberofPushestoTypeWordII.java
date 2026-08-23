@@ -1,37 +1,28 @@
-// Last updated: 8/23/2026, 8:50:35 PM
-1/**
-2 * Definition for singly-linked list.
-3 * public class ListNode {
-4 *     int val;
-5 *     ListNode next;
-6 *     ListNode() {}
-7 *     ListNode(int val) { this.val = val; }
-8 *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-9 * }
-10 */
-11class Solution {
-12    public ListNode reverseBetween(ListNode head, int left, int right) {
-13        if (head == null || left == right) {
-14            return head;
-15        }
-16
-17        ListNode dummy = new ListNode(0);
-18        dummy.next = head;
-19        ListNode prev = dummy;
-20
-21        for (int i = 0; i < left - 1; i++) {
-22            prev = prev.next;
-23        }
-24
-25        ListNode cur = prev.next;
-26
-27        for (int i = 0; i < right - left; i++) {
-28            ListNode temp = cur.next;
-29            cur.next = temp.next;
-30            temp.next = prev.next;
-31            prev.next = temp;
-32        }
-33
-34        return dummy.next;        
-35    }
-36}
+// Last updated: 8/23/2026, 8:52:17 PM
+1class Solution {
+2    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+3        ListNode dummyHead = new ListNode(0);
+4        ListNode tail = dummyHead;
+5        int carry = 0;
+6
+7        while (l1 != null || l2 != null || carry != 0) {
+8            int digit1 = (l1 != null) ? l1.val : 0;
+9            int digit2 = (l2 != null) ? l2.val : 0;
+10
+11            int sum = digit1 + digit2 + carry;
+12            int digit = sum % 10;
+13            carry = sum / 10;
+14
+15            ListNode newNode = new ListNode(digit);
+16            tail.next = newNode;
+17            tail = tail.next;
+18
+19            l1 = (l1 != null) ? l1.next : null;
+20            l2 = (l2 != null) ? l2.next : null;
+21        }
+22
+23        ListNode result = dummyHead.next;
+24        dummyHead.next = null;
+25        return result;
+26    }
+27}
