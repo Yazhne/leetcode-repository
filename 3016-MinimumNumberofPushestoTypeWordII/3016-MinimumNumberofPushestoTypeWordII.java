@@ -1,26 +1,21 @@
-// Last updated: 8/23/2026, 12:36:29 PM
+// Last updated: 8/23/2026, 12:41:04 PM
 1class Solution {
-2    public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
-3	Map<Integer,Integer> sums = new HashMap<>();
-4	int count = 0;
-5	for(int i=0; i<A.length;i++) {
-6		for(int j=0;j<B.length;j++){
-7			int sum = A[i]+B[j];
-8			if(sums.containsKey(sum)) {
-9				sums.put(sum, sums.get(sum)+1);
-10			} else {
-11				sums.put(sum, 1);
-12			}
-13		}
-14	}
-15	for(int k=0; k<A.length;k++) {
-16		for(int z=0;z<C.length;z++){
-17			int sum = -(C[k]+D[z]);
-18			if(sums.containsKey(sum)) {
-19				count+=sums.get(sum);
-20			}
-21		}
-22	}
-23	return count;
-24}
-25}
+2    public int[] topKFrequent(int[] nums, int k) {
+3        HashMap<Integer,Integer> map = new HashMap<>();
+4
+5        for(int element : nums){
+6            map.put(element, map.getOrDefault(element,0)+1);
+7        }
+8        ArrayList<Map.Entry<Integer,Integer>> arr =
+9                new ArrayList<>(map.entrySet());
+10
+11        arr.sort((a,b)->b.getValue()-a.getValue());
+12        int[] last = new int[k];
+13
+14        for(int i=0;i<k;i++){
+15            last[i]=arr.get(i).getKey();
+16        }
+17
+18        return last;
+19    }
+20}
