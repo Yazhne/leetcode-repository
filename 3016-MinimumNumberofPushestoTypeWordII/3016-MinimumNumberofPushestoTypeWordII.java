@@ -1,24 +1,33 @@
-// Last updated: 8/23/2026, 8:37:55 PM
+// Last updated: 8/23/2026, 8:40:58 PM
 1class Solution {
-2    public int splitArray( int[ ] nums , int  k )  {
-3        int low = 0 , high = 0 ;
-4        for( int  i : nums ){
-5            high += i ;
-6            low = Math.max( i , low ) ;
-7        }
-8        return find( low , high , nums , k ) ;
-9    }
-10    private int find( int l , int h , int n [ ] , int k ) {
-11        if( l >h ) return l;
-12        int c = 1 , m = l + ( h - l ) / 2 , sum = 0 ;
-13        for(int i : n ) {
-14            if( i + sum > m ){
-15                sum = i ;
-16                c ++ ;
-17            }
-18            else    sum += i ;
-19        }
-20        if(c <= k ) return find( l , m - 1 , n , k ) ;
-21        return find( m + 1 , h , n , k ) ;
-22    }
-23}
+2    public ListNode removeNthFromEnd(ListNode head, int n) {
+3        // Handle single node list
+4        if (head.next == null) return null;
+5        
+6        ListNode ptr = head;
+7        ListNode temp = head;
+8        
+9        // Move ptr forward n times to create the gap
+10        int i = 1;
+11        while (i <= n) {
+12            ptr = ptr.next; 
+13            i++;
+14        }
+15        
+16        // If ptr becomes null, we need to remove the head
+17        if (ptr == null) return head.next;
+18        
+19        // Move both until ptr reaches the last node
+20        while (ptr.next != null) {
+21            ptr = ptr.next;
+22            temp = temp.next;
+23        } 
+24        
+25        // Skip the nth node from the end
+26        if (temp.next != null) {
+27            temp.next = temp.next.next;
+28        }
+29        
+30        return head;
+31    }
+32}
