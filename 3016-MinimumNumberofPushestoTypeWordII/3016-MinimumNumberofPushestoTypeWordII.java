@@ -1,28 +1,25 @@
-// Last updated: 8/23/2026, 10:41:17 PM
+// Last updated: 8/23/2026, 10:46:08 PM
 1class Solution {
-2    public ListNode rotateRight(ListNode head, int k) {
-3        if (head == null || head.next == null || k == 0) {
-4            return head;
-5        }
-6        int n = 1;
-7        ListNode tail = head;
-8        while (tail.next != null) {
-9            tail = tail.next;
-10            n++;
-11        }
-12        k = k % n;
-13        if (k == 0) {
-14            return head;
-15        }
-16        tail.next = head;
-17        int steps = n - k;
-18        ListNode newTail = head;
-19        for (int i = 1; i < steps; i++) {
-20            newTail = newTail.next;
-21        }
-22        ListNode newHead = newTail.next;
-23        newTail.next = null;
-24
-25        return newHead;
-26    }
-27}
+2    public ListNode deleteDuplicates(ListNode head) {
+3        if (head == null || head.next == null) return head;
+4
+5        ListNode dummy = new ListNode(-1); 
+6        dummy.next = head;
+7        ListNode prev = dummy;
+8        ListNode cur = head;
+9
+10        while (cur != null && cur.next != null) {
+11            if (cur.val == cur.next.val) {
+12                while (cur.next != null && cur.val == cur.next.val) {
+13                    cur = cur.next;
+14                }
+15                prev.next = cur.next; 
+16            } else {
+17                prev = prev.next; 
+18            }
+19            cur = cur.next;
+20        }
+21
+22        return dummy.next;
+23    }
+24}
